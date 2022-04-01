@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-SwaggerInit(app) // 引入swagger
+//SwaggerInit(app) // 引入swagger
 RouterInit(app) // 初始化路由
 
 // catch 404 and forward to error handler
