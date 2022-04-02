@@ -6,14 +6,14 @@ var { oauth } = require('../controller')
 
 /**
  * @swagger
- * /login:
+ * /oauth:
  *   post:
- *     description: 接口描述
+ *     description: 调用 java 服务鉴权
  *     responses:
  *       200:
- *         description: Returns a success string.
+ *         description: 返回鉴权数据.
  */
-router.post('/login', function (req, res, next) {
+router.post('/', function (req, res, next) {
     oauth(req, res, next)
 });
 
