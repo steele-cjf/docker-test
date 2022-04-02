@@ -6,6 +6,8 @@ const { post } = require('../lib/axios')
 
 async function oauth(req, res, next) {
     post(OAUTH_URL).then((data) => {
+        const { access_token, token_type, expires_in
+        } = data
         res.send(data)
     }).
         catch(error => {

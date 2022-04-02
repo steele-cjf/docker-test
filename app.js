@@ -7,6 +7,9 @@ var SwaggerInit = require('./lib/swagger')
 
 var RouterInit = require('./routes/index');
 
+require('./lib/redis')
+
+
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
