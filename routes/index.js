@@ -6,7 +6,7 @@ var oauthRouter = require('./oauth')
  * @param {*} app 
  */
 var RouterInit = function (app) {
-  app.use('/oauth', oauthRouter)
+  app.use(oauthRouter)
   app.use('/users', usersRouter)
 }
 

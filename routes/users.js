@@ -3,7 +3,7 @@ var router = express.Router();
 
 /**
  * @swagger
- * /test:
+ * /users/test:
  *   get:
  *     description: 接口描述
  *     responses:

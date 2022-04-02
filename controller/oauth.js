@@ -15,7 +15,6 @@ async function handleOAuth(data) {
     await redisClient.set(ACCESS_TOKEN, value, {
         EX: expires_in
     });
-
 }
 
 async function hasOAuth() {
@@ -24,21 +23,28 @@ async function hasOAuth() {
 }
 
 async function oauth(req, res, next) {
-    post(OAUTH_URL).then((data) => {
-        handleOAuth(data)
-        res.send(data)
-    }).
-        catch(error => {
-            const { response } = error
-            const { status, data } = response
-            if (status === 401) {
-                res.send(data)
-            } else if (status === 500) {
-                res.send(data)
-            } else {
-                res.send(data)
-            }
-        })
+    const isOAuth = await hasOAuth()
+
+    if (!isOAuth) {
+        post(OAUTH_URL).then(async (data) => {
+            await handleOAuth(data)
+            next()
+        }).
+            catch(error => {
+                const { response } = error
+                const { status, data } = response
+                if (status === 401) {
+                    res.send(data)
+                } else if (status === 500) {
+                    res.send(data)
+                } else {
+                    res.send(data)
+                }
+            })
+    } else {
+        next()
+    }
+
 }
 
 module.exports = oauth
