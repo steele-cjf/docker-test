@@ -32,14 +32,19 @@ async function oauth(req, res, next) {
         }).
             catch(error => {
                 const { response } = error
-                const { status, data } = response
-                if (status === 401) {
-                    res.send(data)
-                } else if (status === 500) {
-                    res.send(data)
+                if (response) {
+                    const { status, data } = response
+                    if (Number(status) === 401) {
+                        res.send(data)
+                    } else if (Number(status) === 500) {
+                        res.send(data)
+                    } else {
+                        res.send(data)
+                    }
                 } else {
-                    res.send(data)
+                    res.send(500)
                 }
+
             })
     } else {
         next()
