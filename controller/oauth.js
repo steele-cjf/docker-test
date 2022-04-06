@@ -1,6 +1,6 @@
 
 const { OAUTH_CF } = require('../config')
-const { post } = require('../lib/axios')
+const { httpPost } = require('../lib/axios')
 
 const { ACCESS_TOKEN, url } = OAUTH_CF
 
@@ -25,7 +25,7 @@ async function oauth(req, res, next) {
     const isOAuth = await hasOAuth()
 
     if (!isOAuth) {
-        post(url).then(async (data) => {
+        httpPost(url).then(async (data) => {
             await handleOAuth(data)
             next()
         }).
