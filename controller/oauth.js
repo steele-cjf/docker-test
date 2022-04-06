@@ -2,7 +2,7 @@
 const { OAUTH_CF } = require('../config')
 const { httpPost } = require('../lib/axios')
 
-const { ACCESS_TOKEN, url } = OAUTH_CF
+const { token_key, url } = OAUTH_CF
 
 
 
@@ -11,14 +11,14 @@ async function handleOAuth(data) {
     } = data
     const redisClient = global.redisClient
     const value = "Bearer " + access_token;
-    await redisClient.set(ACCESS_TOKEN, value, {
+    await redisClient.set(token_key, value, {
         EX: expires_in
     });
 }
 
 async function hasOAuth() {
     const redisClient = global.redisClient
-    return await redisClient.get(ACCESS_TOKEN)
+    return await redisClient.get(token_key)
 }
 
 async function oauth(req, res, next) {
