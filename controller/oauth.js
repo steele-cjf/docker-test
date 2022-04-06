@@ -1,9 +1,8 @@
 
-// https://sso-dev.thingsmatrix.cn/oauth/token?client_id=inner-node-service&client_secret=7W8oSS4yaa24wEafDh7rAO79z2t&grant_type=client_credentials
-const OAUTH_URL = `https://sso-dev.thingsmatrix.cn/oauth/token?client_id=inner-node-service&client_secret=7W8oSS4yaa24wEafDh7rAO79z2t&grant_type=client_credentials`
+const { OAUTH_CF } = require('../config')
 const { post } = require('../lib/axios')
 
-const ACCESS_TOKEN = 'access_token'
+const { ACCESS_TOKEN, url } = OAUTH_CF
 
 
 
@@ -26,7 +25,7 @@ async function oauth(req, res, next) {
     const isOAuth = await hasOAuth()
 
     if (!isOAuth) {
-        post(OAUTH_URL).then(async (data) => {
+        post(url).then(async (data) => {
             await handleOAuth(data)
             next()
         }).
